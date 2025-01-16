@@ -1,0 +1,4 @@
+repository "2D Shooter@DeadGuyWalkinG@cloud"
+  path "/"
+    br "/main"
+    co "/main"
