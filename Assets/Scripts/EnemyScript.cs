@@ -46,5 +46,9 @@ public class EnemyScript : MonoBehaviour
             Debug.Log("Enemy destroyed");
         }
 
+        if (collision.collider.tag == "Enemy")
+        {
+            Physics2D.IgnoreCollision(collision.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        }
     }
 }
