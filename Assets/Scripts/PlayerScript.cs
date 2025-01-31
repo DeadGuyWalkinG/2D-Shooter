@@ -25,35 +25,37 @@ public class PlayerScript : MonoBehaviour
 
     void Start()
     {
-        transform.position = new Vector2(0, 0);
+        
     }
 
 
     void Update()
     {
+        horizontalMove = Input.GetAxis("Horizontal");
+        animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+
         movement();
 
         if ((Input.GetKeyDown(KeyCode.Space)) && Time.time > nextFire)
             fire();
-        horizontalMove=Mathf.Abs(Input.GetAxis("Horizontal"));
-        animator.SetFloat("Speed", horizontalMove);
+        
     }
 
     void movement()
     {
-        if (Input.GetAxis("Horizontal") < 0/*(Input.GetKey(KeyCode.LeftArrow)) || (Input.GetKey(KeyCode.A))*/)
+        if (horizontalMove < -0.4/*(Input.GetKey(KeyCode.LeftArrow)) || (Input.GetKey(KeyCode.A))*/)
         {
             transform.Translate(Vector2.left * Time.deltaTime * speed);
             aim = 0;
         }
-        else if (Input.GetAxis("Horizontal") > 0/*(Input.GetKey(KeyCode.RightArrow)) || (Input.GetKey(KeyCode.D))*/)
+        else if (horizontalMove > 0.4/*(Input.GetKey(KeyCode.RightArrow)) || (Input.GetKey(KeyCode.D))*/)
         {
             transform.Translate(Vector2.right * Time.deltaTime * speed);
             aim = 1;
         }
-        if (((Input.GetKeyDown(KeyCode.UpArrow)) || (Input.GetKey(KeyCode.W))) && Time.time > nextJump)
+        if (Input.GetAxis("Vertical")>0 && Time.time > nextJump)
         {
-            playerRB.linearVelocity= Vector2.up * jump;
+            playerRB.linearVelocityY = jump;
             nextJump = Time.time + jumpRate;
         }
 
